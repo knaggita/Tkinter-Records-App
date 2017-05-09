@@ -89,7 +89,7 @@ def combined_files(zip_files_path, reportspath):
     os.remove(reportspath +'\combined_files.csv')
 
 # Gnerate a unique pdf report
-def renu_report(ipblock, zip_files_path, reportspath):
+def unique_report(ipblock, zip_files_path, reportspath):
     ips = []
     attack = []
     allattacks = []
@@ -111,7 +111,7 @@ def renu_report(ipblock, zip_files_path, reportspath):
         else:
             newl.append(tup)
     counts = dict(Counter(elem[0] for elem in newl))
-    with PdfPages(reportspath + '\RENU REPORT.pdf') as pdf:
+    with PdfPages(reportspath + '\UNIQUE REPORT.pdf') as pdf:
 
         fig = plt.figure()
         width = 0.35
@@ -149,14 +149,14 @@ def company_reports(ipblock, zip_files_path, reportspath):
                         writer = csv.writer(open(reportspath + "\\" + str(generate_ip_blocks(ipblock)[k]) + '.csv', 'ab'))
                     else:
                         writer = csv.writer(open(reportspath + "\\" + str(generate_ip_blocks(ipblock)[k]) + '.csv', 'wb'))
-                        writer.writerow(["TIMESTAMP", "HOST IPADDRESS", "NAME OF ATTACK"])
+                        writer.writerow(["TIMESTAMP", "HOST IPADDRESS", "NAME OF VULNERABILITY"])
                     writer.writerow(row)
 
 def generatepdf(ipblock, zip_files_path, reportspath):
-     # combined_files(zip_files_path, reportspath)
-     # renu_report(ipblock, zip_files_path, reportspath)
-     # company_reports(ipblock, zip_files_path, reportspath)
-     # os.remove(reportspath + '\AllFiles.csv')
+     combined_files(zip_files_path, reportspath)
+     renu_report(ipblock, zip_files_path, reportspath)
+     company_reports(ipblock, zip_files_path, reportspath)
+     os.remove(reportspath + '\AllFiles.csv')
      readfiles = glob.glob(os.path.join(reportspath,"*.csv"))
      for filename in readfiles:
          if "combined_files" in filename:
@@ -170,11 +170,11 @@ def generatepdf(ipblock, zip_files_path, reportspath):
          content2 = line1 + filenam + " continued ... "
 
          def logo(canvas, doc):
-             logo_img = 'F:\\flask\logo.png'
+             logo_img = 'logo.png'
              canvas.drawImage(logo_img, 300, 730)
              canvas.drawString(100,715,content)
          def logo2(canvas, doc):
-             logo_img = 'F:\\flask\logo.png'
+             logo_img = 'logo.png'
              canvas.drawImage(logo_img, 300, 730)
              canvas.drawString(100,715,content2)
 
